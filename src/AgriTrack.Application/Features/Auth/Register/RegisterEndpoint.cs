@@ -19,6 +19,10 @@ public static class RegisterEndpoint
             {
                 return Results.Conflict(new { message = ex.Message });
             }
+            catch (ArgumentException ex)
+            {
+                return Results.BadRequest(new { message = ex.Message });
+            }
         })
         .WithName("Register")
         .AllowAnonymous();

@@ -17,8 +17,25 @@ public sealed class RegisterHandler
 
     public async Task<AuthResponse> HandleAsync(RegisterRequest request)
     {
+        var name = request.Name?.Trim() ?? string.Empty;
+        var emailOrPhone = request.EmailOrPhone?.Trim() ?? string.Empty;
+        var password = request.Password ?? string.Empty;
+
+        if (name.Length == 0)
+        {
+            throw new ArgumentException("Name is required.");
+        }
+        if (emailOrPhone.Length == 0)
+        {
+            throw new ArgumentException("Email or phone is required.");
+        }
+        if (password.Length < 6)
+        {
+            throw new ArgumentException("Password must be at least 6 characters.");
+        }
+
         var existing = await _repository.QuerySingleOrDefaultAsync<User>(
-            StoredProcedures.GetUserByEmailOrPhone, new { request.EmailOrPhone });
+            StoredProcedures.GetUserByEmailOrPhone, new { EmailOrPhone = emailOrPhone });
         if (existing is not null)
         {
             throw new InvalidOperationException("An account with this email or phone already exists.");
@@ -27,9 +44,9 @@ public sealed class RegisterHandler
         var user = new User
         {
             Id = Guid.NewGuid(),
-            Name = request.Name,
-            EmailOrPhone = request.EmailOrPhone,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
+            Name = name,
+            EmailOrPhone = emailOrPhone,
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(password),
             PreferredLanguage = request.PreferredLanguage
         };
 
