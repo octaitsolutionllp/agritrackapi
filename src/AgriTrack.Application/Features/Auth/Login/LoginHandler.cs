@@ -9,15 +9,22 @@ public sealed class LoginHandler
 {
     private readonly IStoredProcRepository _repository;
     private readonly JwtTokenGenerator _tokenGenerator;
+    private readonly CaptchaService _captcha;
 
-    public LoginHandler(IStoredProcRepository repository, JwtTokenGenerator tokenGenerator)
+    public LoginHandler(IStoredProcRepository repository, JwtTokenGenerator tokenGenerator, CaptchaService captcha)
     {
         _repository = repository;
         _tokenGenerator = tokenGenerator;
+        _captcha = captcha;
     }
 
     public async Task<AuthResponse> HandleAsync(LoginRequest request)
     {
+        if (!_captcha.Validate(request.CaptchaToken, request.CaptchaAnswer))
+        {
+            throw new ArgumentException("Incorrect answer to the security question. Please try again.");
+        }
+
         var user = await _repository.QuerySingleOrDefaultAsync<User>(
             StoredProcedures.GetUserByEmailOrPhone, new { request.EmailOrPhone });
 

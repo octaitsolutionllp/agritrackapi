@@ -8,15 +8,22 @@ public sealed class RegisterHandler
 {
     private readonly IStoredProcRepository _repository;
     private readonly JwtTokenGenerator _tokenGenerator;
+    private readonly CaptchaService _captcha;
 
-    public RegisterHandler(IStoredProcRepository repository, JwtTokenGenerator tokenGenerator)
+    public RegisterHandler(IStoredProcRepository repository, JwtTokenGenerator tokenGenerator, CaptchaService captcha)
     {
         _repository = repository;
         _tokenGenerator = tokenGenerator;
+        _captcha = captcha;
     }
 
     public async Task<AuthResponse> HandleAsync(RegisterRequest request)
     {
+        if (!_captcha.Validate(request.CaptchaToken, request.CaptchaAnswer))
+        {
+            throw new ArgumentException("Incorrect answer to the security question. Please try again.");
+        }
+
         var name = request.Name?.Trim() ?? string.Empty;
         var emailOrPhone = request.EmailOrPhone?.Trim() ?? string.Empty;
         var password = request.Password ?? string.Empty;

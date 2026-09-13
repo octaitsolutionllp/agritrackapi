@@ -6,6 +6,7 @@ public sealed class CropCycle
     public Guid UserId { get; set; }
     public Guid FieldId { get; set; }
     public string FieldName { get; set; } = string.Empty;
+    public decimal? FieldAreaAcres { get; set; }
     public Guid CropTypeId { get; set; }
     public string CropTypeName { get; set; } = string.Empty;
     public string? SeedVariety { get; set; }

@@ -19,6 +19,10 @@ public static class LoginEndpoint
             {
                 return Results.Json(new { message = ex.Message }, statusCode: StatusCodes.Status401Unauthorized);
             }
+            catch (ArgumentException ex)
+            {
+                return Results.BadRequest(new { message = ex.Message });
+            }
         })
         .WithName("Login")
         .AllowAnonymous();

@@ -9,6 +9,7 @@ AgriTrack.Infrastructure.DapperTypeHandlers.Register();
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
+builder.Services.AddMemoryCache();
 builder.Services.AddAgriTrackInfrastructure();
 builder.Services.AddAgriTrackApplication();
 

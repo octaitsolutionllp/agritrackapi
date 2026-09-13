@@ -6,7 +6,7 @@ BEGIN
     SET NOCOUNT ON;
 
     SELECT
-        cc.Id, cc.UserId, cc.FieldId, f.Name AS FieldName, cc.CropTypeId, ct.Name AS CropTypeName,
+        cc.Id, cc.UserId, cc.FieldId, f.Name AS FieldName, f.AreaAcres AS FieldAreaAcres, cc.CropTypeId, ct.Name AS CropTypeName,
         cc.SeedVariety, cc.SownDate, cc.ExpectedHarvestDate, cc.CurrentStage, cc.StageStartedAt, cc.Status,
         cc.CreatedAt, cc.UpdatedAt,
         cc.CycleLabel, cc.ParentCropCycleId, cc.RootCropCycleId,
