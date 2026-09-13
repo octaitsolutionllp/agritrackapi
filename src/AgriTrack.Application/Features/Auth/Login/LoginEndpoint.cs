@@ -1,5 +1,7 @@
+using AgriTrack.Application.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.Routing;
 
 namespace AgriTrack.Application.Features.Auth.Login;
@@ -19,12 +21,9 @@ public static class LoginEndpoint
             {
                 return Results.Json(new { message = ex.Message }, statusCode: StatusCodes.Status401Unauthorized);
             }
-            catch (ArgumentException ex)
-            {
-                return Results.BadRequest(new { message = ex.Message });
-            }
         })
         .WithName("Login")
+        .RequireRateLimiting(RateLimitPolicies.Login)
         .AllowAnonymous();
     }
 }

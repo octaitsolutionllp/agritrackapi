@@ -36,7 +36,6 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddAgriTrackApplication(this IServiceCollection services)
     {
         services.AddScoped<JwtTokenGenerator>();
-        services.AddSingleton<CaptchaService>();
 
         services.AddScoped<RegisterHandler>();
         services.AddScoped<LoginHandler>();
