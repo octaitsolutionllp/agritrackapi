@@ -1,0 +1,21 @@
+# .NET build output
+bin/
+obj/
+out/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.suo
+
+# Machine-specific local dev secrets (DB connection string, SQL instance name) —
+# copy appsettings.Development.json.example to appsettings.Development.json and fill in your own.
+appsettings.Development.json
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
