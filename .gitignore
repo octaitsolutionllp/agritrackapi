@@ -2,6 +2,10 @@
 bin/
 obj/
 out/
+publish_output/
+
+# Deploy artifacts (zipped for `az webapp deploy`, rebuilt each deploy)
+*.zip
 
 # Visual Studio / Rider
 .vs/
