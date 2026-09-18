@@ -1,6 +1,7 @@
 CREATE OR ALTER PROCEDURE agritrack.Sp_GetPnlByCropForUser
     @UserId UNIQUEIDENTIFIER,
-    @FarmId UNIQUEIDENTIFIER = NULL
+    @FarmId UNIQUEIDENTIFIER = NULL,
+    @FieldId UNIQUEIDENTIFIER = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -26,7 +27,7 @@ BEGIN
     OUTER APPLY (
         SELECT SUM(SaleIncome) AS TotalIncome FROM agritrack.Harvests h WHERE h.CropCycleId = cc.Id
     ) inc
-    WHERE cc.UserId = @UserId AND (@FarmId IS NULL OR f.FarmId = @FarmId)
+    WHERE cc.UserId = @UserId AND (@FarmId IS NULL OR f.FarmId = @FarmId) AND (@FieldId IS NULL OR f.Id = @FieldId)
     ORDER BY cc.CreatedAt DESC;
 END
 GO

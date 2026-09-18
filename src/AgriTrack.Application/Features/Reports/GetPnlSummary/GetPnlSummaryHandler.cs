@@ -13,10 +13,10 @@ public sealed class GetPnlSummaryHandler
         _repository = repository;
     }
 
-    public async Task<PnlSummaryResponse> HandleAsync(Guid userId, Guid? farmId = null)
+    public async Task<PnlSummaryResponse> HandleAsync(Guid userId, Guid? farmId = null, Guid? fieldId = null)
     {
-        var totalsTask = _repository.QuerySingleOrDefaultAsync<PnlTotalsRow>(StoredProcedures.GetPnlSummaryByUser, new { UserId = userId, FarmId = farmId });
-        var perCropTask = _repository.QueryAsync<CropProfit>(StoredProcedures.GetPnlByCropForUser, new { UserId = userId, FarmId = farmId });
+        var totalsTask = _repository.QuerySingleOrDefaultAsync<PnlTotalsRow>(StoredProcedures.GetPnlSummaryByUser, new { UserId = userId, FarmId = farmId, FieldId = fieldId });
+        var perCropTask = _repository.QueryAsync<CropProfit>(StoredProcedures.GetPnlByCropForUser, new { UserId = userId, FarmId = farmId, FieldId = fieldId });
         await Task.WhenAll(totalsTask, perCropTask);
 
         var totals = totalsTask.Result ?? new PnlTotalsRow(0, 0, 0);

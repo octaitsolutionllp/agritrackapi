@@ -10,9 +10,9 @@ public static class GetPnlSummaryEndpoint
 {
     public static void MapGetPnlSummaryEndpoint(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/reports/pnl-summary", async (ClaimsPrincipal user, Guid? farmId, GetPnlSummaryHandler handler) =>
+        app.MapGet("/api/reports/pnl-summary", async (ClaimsPrincipal user, Guid? farmId, Guid? fieldId, GetPnlSummaryHandler handler) =>
         {
-            var summary = await handler.HandleAsync(CurrentUser.GetUserId(user), farmId);
+            var summary = await handler.HandleAsync(CurrentUser.GetUserId(user), farmId, fieldId);
             return Results.Ok(summary);
         })
         .WithName("GetPnlSummary")

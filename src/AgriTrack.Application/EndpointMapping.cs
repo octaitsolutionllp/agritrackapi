@@ -29,6 +29,7 @@ using AgriTrack.Application.Features.Profile.ChangePassword;
 using AgriTrack.Application.Features.Profile.CropSelection;
 using AgriTrack.Application.Features.Profile.DeleteAccount;
 using AgriTrack.Application.Features.Profile.UpdateLanguage;
+using AgriTrack.Application.Features.Profile.UpdateProfile;
 using AgriTrack.Application.Features.Reports.GetPnlByCropCycle;
 using AgriTrack.Application.Features.Reports.GetPnlSummary;
 using AgriTrack.Application.Features.Reports.GetReminders;
@@ -75,6 +76,7 @@ public static class EndpointMapping
         app.MapGetRemindersEndpoint();
 
         app.MapUpdateLanguageEndpoint();
+        app.MapUpdateProfileEndpoint();
         app.MapChangePasswordEndpoint();
         app.MapDeleteAccountEndpoint();
         app.MapGetSelectedCropTypesEndpoint();

@@ -7,6 +7,7 @@ public static class StoredProcedures
     public const string GetUserByEmailOrPhone = "agritrack.Sp_GetUserByEmailOrPhone";
     public const string GetUserById = "agritrack.Sp_GetUserById";
     public const string UpdateUserLanguage = "agritrack.Sp_UpdateUserLanguage";
+    public const string UpdateUserProfile = "agritrack.Sp_UpdateUserProfile";
     public const string UpdatePassword = "agritrack.Sp_UpdatePassword";
     public const string DeleteUserAccount = "agritrack.Sp_DeleteUserAccount";
     public const string GetAllUsers = "agritrack.Sp_GetAllUsers";
