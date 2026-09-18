@@ -16,4 +16,9 @@ public static class CurrentUser
     {
         return user.FindFirst("preferred_language")?.Value ?? "en";
     }
+
+    public static bool IsAdmin(ClaimsPrincipal user)
+    {
+        return user.FindFirst(ClaimTypes.Role)?.Value == "Admin";
+    }
 }

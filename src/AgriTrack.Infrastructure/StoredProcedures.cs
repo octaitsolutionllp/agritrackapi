@@ -9,6 +9,9 @@ public static class StoredProcedures
     public const string UpdateUserLanguage = "agritrack.Sp_UpdateUserLanguage";
     public const string UpdatePassword = "agritrack.Sp_UpdatePassword";
     public const string DeleteUserAccount = "agritrack.Sp_DeleteUserAccount";
+    public const string GetAllUsers = "agritrack.Sp_GetAllUsers";
+    public const string GetUsersCreatedByAdmin = "agritrack.Sp_GetUsersCreatedByAdmin";
+    public const string SetUserRole = "agritrack.Sp_SetUserRole";
 
     public const string CreateFarm = "agritrack.Sp_CreateFarm";
     public const string GetFarmsByUser = "agritrack.Sp_GetFarmsByUser";

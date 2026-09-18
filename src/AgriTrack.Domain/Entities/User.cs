@@ -8,6 +8,9 @@ public sealed class User
     public string PasswordHash { get; set; } = string.Empty;
     public string PreferredLanguage { get; set; } = "en";
     public bool HasCompletedCropSelection { get; set; }
+    public string Role { get; set; } = "User";
+    public Guid? CreatedByUserId { get; set; }
+    public string? CreatedByName { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 }

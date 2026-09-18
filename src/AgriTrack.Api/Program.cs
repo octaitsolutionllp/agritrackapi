@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using System.Threading.RateLimiting;
@@ -41,7 +42,10 @@ builder.Services
             ValidateLifetime = true
         };
     });
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
+});
 
 // Throttles brute-force/credential-stuffing attempts against login: 5 tries per IP per minute,
 // rejected immediately (no queueing) with 429 once exhausted.

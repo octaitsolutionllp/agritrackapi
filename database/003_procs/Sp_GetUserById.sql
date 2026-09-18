@@ -6,7 +6,7 @@ BEGIN
 
     -- Includes PasswordHash: only ever consumed server-side (e.g. to verify the current
     -- password before a change) — handlers must not put it on a response DTO.
-    SELECT Id, Name, EmailOrPhone, PasswordHash, PreferredLanguage, HasCompletedCropSelection, CreatedAt, UpdatedAt
+    SELECT Id, Name, EmailOrPhone, PasswordHash, PreferredLanguage, HasCompletedCropSelection, Role, CreatedByUserId, CreatedAt, UpdatedAt
     FROM agritrack.Users
     WHERE Id = @Id;
 END

@@ -1,21 +1,18 @@
-using AgriTrack.Application.Common;
 using AgriTrack.Domain.Entities;
 using AgriTrack.Infrastructure;
 
-namespace AgriTrack.Application.Features.Auth.Register;
+namespace AgriTrack.Application.Features.Admin.CreateUser;
 
-public sealed class RegisterHandler
+public sealed class AdminCreateUserHandler
 {
     private readonly IStoredProcRepository _repository;
-    private readonly JwtTokenGenerator _tokenGenerator;
 
-    public RegisterHandler(IStoredProcRepository repository, JwtTokenGenerator tokenGenerator)
+    public AdminCreateUserHandler(IStoredProcRepository repository)
     {
         _repository = repository;
-        _tokenGenerator = tokenGenerator;
     }
 
-    public async Task<AuthResponse> HandleAsync(RegisterRequest request)
+    public async Task<AdminUserResponse> HandleAsync(Guid adminUserId, AdminCreateUserRequest request)
     {
         var name = request.Name?.Trim() ?? string.Empty;
         var emailOrPhone = request.EmailOrPhone?.Trim() ?? string.Empty;
@@ -41,25 +38,16 @@ public sealed class RegisterHandler
             throw new InvalidOperationException("An account with this email or phone already exists.");
         }
 
-        var user = new User
+        var created = await _repository.QuerySingleOrDefaultAsync<User>(StoredProcedures.CreateUser, new
         {
             Id = Guid.NewGuid(),
             Name = name,
             EmailOrPhone = emailOrPhone,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(password),
-            PreferredLanguage = request.PreferredLanguage
-        };
+            request.PreferredLanguage,
+            CreatedByUserId = adminUserId
+        });
 
-        var created = await _repository.QuerySingleOrDefaultAsync<User>(StoredProcedures.CreateUser, new
-        {
-            user.Id,
-            user.Name,
-            user.EmailOrPhone,
-            user.PasswordHash,
-            user.PreferredLanguage
-        }) ?? user;
-
-        var token = _tokenGenerator.GenerateToken(created);
-        return new AuthResponse(token, created.Id, created.Name, created.EmailOrPhone, created.PreferredLanguage, created.HasCompletedCropSelection, created.Role);
+        return AdminUserResponse.From(created!);
     }
 }

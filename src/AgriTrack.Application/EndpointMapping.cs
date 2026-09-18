@@ -1,6 +1,12 @@
 using AgriTrack.Application.Features.Activities.LogActivity;
 using AgriTrack.Application.Features.Activities.ListActivities;
 using AgriTrack.Application.Features.Activities.DeleteActivity;
+using AgriTrack.Application.Features.Admin.CreateUser;
+using AgriTrack.Application.Features.Admin.GetUserData;
+using AgriTrack.Application.Features.Admin.ListUsers;
+using AgriTrack.Application.Features.Admin.ListUsersCreatedByMe;
+using AgriTrack.Application.Features.Admin.ResetPassword;
+using AgriTrack.Application.Features.Admin.SetRole;
 using AgriTrack.Application.Features.Auth.Login;
 using AgriTrack.Application.Features.Auth.Register;
 using AgriTrack.Application.Features.CropCycles.AdvanceStage;
@@ -73,5 +79,12 @@ public static class EndpointMapping
         app.MapDeleteAccountEndpoint();
         app.MapGetSelectedCropTypesEndpoint();
         app.MapSetCropTypesEndpoint();
+
+        app.MapListUsersEndpoint();
+        app.MapListUsersCreatedByMeEndpoint();
+        app.MapGetUserDataEndpoint();
+        app.MapAdminCreateUserEndpoint();
+        app.MapAdminResetPasswordEndpoint();
+        app.MapSetRoleEndpoint();
     }
 }

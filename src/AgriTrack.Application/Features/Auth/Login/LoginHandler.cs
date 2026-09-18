@@ -27,6 +27,6 @@ public sealed class LoginHandler
         }
 
         var token = _tokenGenerator.GenerateToken(user);
-        return new AuthResponse(token, user.Id, user.Name, user.EmailOrPhone, user.PreferredLanguage, user.HasCompletedCropSelection);
+        return new AuthResponse(token, user.Id, user.Name, user.EmailOrPhone, user.PreferredLanguage, user.HasCompletedCropSelection, user.Role);
     }
 }

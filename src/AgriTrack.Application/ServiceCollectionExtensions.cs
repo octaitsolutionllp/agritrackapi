@@ -1,5 +1,10 @@
 using AgriTrack.Application.Common;
 using AgriTrack.Application.Features.Activities.LogActivity;
+using AgriTrack.Application.Features.Admin.CreateUser;
+using AgriTrack.Application.Features.Admin.ListUsers;
+using AgriTrack.Application.Features.Admin.ListUsersCreatedByMe;
+using AgriTrack.Application.Features.Admin.ResetPassword;
+using AgriTrack.Application.Features.Admin.SetRole;
 using AgriTrack.Application.Features.Activities.ListActivities;
 using AgriTrack.Application.Features.Activities.DeleteActivity;
 using AgriTrack.Application.Features.Auth.Login;
@@ -75,6 +80,12 @@ public static class ServiceCollectionExtensions
         services.AddScoped<DeleteAccountHandler>();
         services.AddScoped<GetSelectedCropTypesHandler>();
         services.AddScoped<SetCropTypesHandler>();
+
+        services.AddScoped<ListUsersHandler>();
+        services.AddScoped<ListUsersCreatedByMeHandler>();
+        services.AddScoped<AdminCreateUserHandler>();
+        services.AddScoped<AdminResetPasswordHandler>();
+        services.AddScoped<SetRoleHandler>();
 
         return services;
     }

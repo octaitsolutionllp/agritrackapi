@@ -27,7 +27,8 @@ public sealed class JwtTokenGenerator
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.Name),
-            new Claim("preferred_language", user.PreferredLanguage)
+            new Claim("preferred_language", user.PreferredLanguage),
+            new Claim(ClaimTypes.Role, user.Role)
         };
 
         var credentials = new SigningCredentials(

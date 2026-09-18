@@ -4,7 +4,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT Id, Name, EmailOrPhone, PasswordHash, PreferredLanguage, HasCompletedCropSelection, CreatedAt, UpdatedAt
+    SELECT Id, Name, EmailOrPhone, PasswordHash, PreferredLanguage, HasCompletedCropSelection, Role, CreatedByUserId, CreatedAt, UpdatedAt
     FROM agritrack.Users
     WHERE EmailOrPhone = @EmailOrPhone;
 END
